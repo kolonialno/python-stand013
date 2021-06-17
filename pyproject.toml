@@ -7,6 +7,7 @@ authors = ["Stein Magnus Jodal <stein.magnus.jodal@oda.com>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 lxml = "^4.6.3"
+typer = "^0.3.2"
 xmlschema = "^1.6.4"
 
 [tool.poetry.dev-dependencies]
@@ -16,6 +17,9 @@ flake8-black = "^0.2.1"
 flake8-isort = "^4.0.0"
 isort = "^5.8.0"
 pytest = "^6.2.4"
+
+[tool.poetry.scripts]
+stand013 = "stand013.cli:app"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
