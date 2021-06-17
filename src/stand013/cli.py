@@ -2,9 +2,8 @@ import textwrap
 from pathlib import Path
 
 import typer
-import xmlschema
 
-from stand013.validation import DocumentType
+from stand013.validation import DocumentType, XMLSchemaValidationError
 
 app = typer.Typer()
 
@@ -22,7 +21,7 @@ def validate(path: Path) -> None:
 
     try:
         document_type.xml_schema.validate(str(path))
-    except xmlschema.validators.exceptions.XMLSchemaValidationError as exc:
+    except XMLSchemaValidationError as exc:
         typer.secho("XML Schema validation: failed", bold=True, fg="red")
         typer.echo("")
         typer.secho(textwrap.indent(str(exc), prefix="  "))

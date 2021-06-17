@@ -7,6 +7,12 @@ from typing import Optional
 
 from lxml import etree
 from xmlschema import XMLSchema
+from xmlschema.validators.exceptions import XMLSchemaValidationError
+
+__all__ = [
+    "DocumentType",
+    "XMLSchemaValidationError",
+]
 
 SCHEMA_DIR = Path(__file__).parent / "schemas"
 
