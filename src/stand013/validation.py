@@ -1,15 +1,50 @@
-import pathlib
+from __future__ import annotations
 
-import xmlschema
+from enum import Enum
+from os import PathLike
+from pathlib import Path
+from typing import Optional
 
-SCHEMA_DIR = pathlib.Path(__file__).parent / "schemas"
+from lxml import etree
+from xmlschema import XMLSchema
 
-order_schema = xmlschema.XMLSchema(
-    str(SCHEMA_DIR / "STAND013-Order_Interchange_v1p1.xsd")
-)
-order_response_schema = xmlschema.XMLSchema(
-    str(SCHEMA_DIR / "STAND013-OrderResponse_Interchange_v1p1.xsd")
-)
-delivery_note_schema = xmlschema.XMLSchema(
-    str(SCHEMA_DIR / "STAND013-DeliveryNote_Interchange_v1p1.xsd")
-)
+SCHEMA_DIR = Path(__file__).parent / "schemas"
+
+
+class DocumentType(str, Enum):
+    """Supported document types."""
+
+    ORDERS = "ORDERS"
+    ORDRSP = "ORDRSP"
+    DESADV = "DESADV"
+
+    @classmethod
+    def detect(cls, path: PathLike) -> Optional[DocumentType]:
+        """Attempt to detect the document type of the given file."""
+        tree = etree.parse(str(Path(path)))
+        namespaces = {"s": "http://www.ean-nor.no/schemas/eannor"}
+        if tree.xpath("/s:Interchange/s:Order", namespaces=namespaces):
+            return cls.ORDERS
+        if tree.xpath("/s:Interchange/s:OrderResponse", namespaces=namespaces):
+            return cls.ORDRSP
+        if tree.xpath("/s:Interchange/s:DeliveryNote", namespaces=namespaces):
+            return cls.DESADV
+        return None
+
+    @property
+    def xml_schema_path(self) -> Path:
+        """Path to the document type's XML Schema."""
+        return {
+            DocumentType.ORDERS: (SCHEMA_DIR / "STAND013-Order_Interchange_v1p1.xsd"),
+            DocumentType.ORDRSP: (
+                SCHEMA_DIR / "STAND013-OrderResponse_Interchange_v1p1.xsd"
+            ),
+            DocumentType.DESADV: (
+                SCHEMA_DIR / "STAND013-DeliveryNote_Interchange_v1p1.xsd"
+            ),
+        }[self]
+
+    @property
+    def xml_schema(self) -> XMLSchema:
+        """XML Schema instance."""
+        return XMLSchema(str(self.xml_schema_path))
