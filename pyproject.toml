@@ -22,6 +22,9 @@ pytest = "^6.2.4"
 [tool.poetry.scripts]
 stand013 = "stand013.cli:app"
 
+[tool.black]
+target-version = ["py37"]
+
 [tool.mypy]
 python_version = "3.7"
 warn_return_any = true
