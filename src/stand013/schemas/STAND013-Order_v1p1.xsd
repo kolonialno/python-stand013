@@ -8,9 +8,7 @@
 <!--STAND013 ORDER-->
 <!--=======================================================================-->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns="http://www.ean-nor.no/schemas/eannor"
-    targetNamespace="http://www.ean-nor.no/schemas/eannor"
-    elementFormDefault="qualified">
+  xmlns="http://www.ean-nor.no/schemas/eannor" targetNamespace="http://www.ean-nor.no/schemas/eannor" elementFormDefault="qualified">
   <xsd:include schemaLocation="STAND013-Components_v1p1.xsd"/>
   <xsd:element name="Order" type="OrderType"/>
   <xsd:complexType name="OrderDetailsType">
@@ -61,7 +59,7 @@
           <xsd:documentation>Bestillingsnummer tildelt av avsender</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="OrderResponse" type="MessageResponseType">
+      <xsd:element name="OrderResponse" type="OrderResponseType">
         <xsd:annotation>
           <xsd:documentation>En av kodene skal benyttes.</xsd:documentation>
         </xsd:annotation>
@@ -159,4 +157,9 @@
       </xsd:annotation>
     </xsd:attribute>
   </xsd:complexType>
+  <xsd:simpleType name="OrderResponseType">
+    <xsd:restriction base="String_3">
+      <xsd:enumeration value="Z1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
 </xsd:schema>
