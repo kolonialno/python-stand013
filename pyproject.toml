@@ -16,10 +16,26 @@ flake8 = "^3.9.2"
 flake8-black = "^0.2.1"
 flake8-isort = "^4.0.0"
 isort = "^5.8.0"
+mypy = "^0.902"
 pytest = "^6.2.4"
 
 [tool.poetry.scripts]
 stand013 = "stand013.cli:app"
+
+[tool.mypy]
+python_version = "3.7"
+warn_return_any = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "stand013.*"
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "xmlschema",
+]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
