@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--=========================================================================-->
+<!--STAND013 DeliveryNote Message format-->
+<!--Copyright (c) GS1 Norway-->
+<!--=========================================================================-->
+<!--Version: 1.1-->
+<!--Last changed: 25.05.2020-->
+<!--STAND013 Delivery Note-->
+<!--=========================================================================-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.ean-nor.no/schemas/eannor"
+    targetNamespace="http://www.ean-nor.no/schemas/eannor"
+    elementFormDefault="qualified">
+  <xsd:include schemaLocation="../Components/STAND013-Components_v1p1.xsd"/>
+  <xsd:element name="DeliveryNote" type="DeliveryNoteType"/>
+  <xsd:complexType name="DeliveryNoteDetailsType">
+    <xsd:sequence>
+      <xsd:annotation>
+        <xsd:documentation>
+Detaljene består enten av
+Linjer
+Pakker + Linjer
+Hierarkisk struktur med Pakker og tilhørende Linjer
+        </xsd:documentation>
+      </xsd:annotation>
+      <xsd:element name="DeliveryNotePackages" type="DeliveryNotePackagesType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Pakkeinformasjon</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BaseItemDetails" type="DeliveryNoteItemsType" minOccurs="1" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Linjen med artikkelopplysninger.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DeliveryNoteHeaderType">
+    <xsd:sequence>
+      <xsd:element name="DeliveryNoteType" default="351">
+        <xsd:annotation>
+          <xsd:documentation>Meldingstype</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="351">
+              <xsd:annotation>
+                <xsd:documentation>Pakkseddel</xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="DeliveryNoteNumber" type="String_35">
+        <xsd:annotation>
+          <xsd:documentation>Pakkseddelnummer tildelt av leverandør</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeliveryDate" type="DateType">
+        <xsd:annotation>
+          <xsd:documentation>Bekreftet leverings dato/ tid</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element ref="Supplier"/>
+      <xsd:element ref="Buyer"/>
+      <xsd:element ref="Invoicee" minOccurs="0"/>
+      <xsd:element ref="OrderedBy" minOccurs="0"/>
+      <xsd:element ref="DeliveryPart" minOccurs="0"/>
+      <xsd:element ref="UltimateCustomer" minOccurs="0"/>
+      <xsd:element ref="ShippedFrom" minOccurs="0"/>
+      <xsd:element ref="Carrier" minOccurs="0"/>
+      <xsd:element name="References" type="ReferencesType" minOccurs="0"/>
+      <xsd:element name="CarrierDetails" type="CarrierDetailsType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Informasjon  om paller og pallplasser. Avtales bilateralt om dette skal oppgis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DeliveryNoteItemsType">
+    <xsd:sequence>
+      <xsd:element ref="LineItemNum"/>
+      <xsd:element name="ProductIdentification" type="ProductIdentificationType"/>
+      <xsd:element name="SubstitutedFor" type="ProductIdentificationType" minOccurs="0"/>
+      <xsd:element name="PackageUnitType" type="String_3" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Skal angis når alt. 3 eller 4 benyttes for vareidentifisering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Vareteksten</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Quantities" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Kvantum</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="DeliveredQuantity" type="QuantityWithDateType">
+              <xsd:annotation>
+                <xsd:documentation>Levert kvantum</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="AdditionalQuantity" type="QuantityWithDateType" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BuyersOrderInfo" type="OrderAndDeliveryInfoType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Informasjon om bestillingen</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="AdditionalOrderLines" type="AdditionalOrderLinesType" minOccurs="0"/>
+      <xsd:element name="SuppliersOrderInfo" type="OrderAndDeliveryInfoType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Informasjon om leverandørens ordre</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UltimateDeliveryLocation" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Sluttmottakers GLN ved Cross-docking</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Ref" type="RefDesadvDetailsType" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Andre referanser</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Dates" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Datoer med forskjellige opplysninger</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ProductionDate" type="DateType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Produksjonsdato (94)</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="OutOfDate" type="DateType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Foreldelsesdato (21E)</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="LastDateOfSale" type="DateType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Siste salgsdato (22E)</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="BestBeforeDate" type="DateType" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Best før dato (23E)</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BatchNumber" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Batchnummer</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="FreeText" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Segmentet benyttes for sporadisk informasjon. Partene må avtale bruken.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DeliveryNotePackagesType">
+    <xsd:annotation>
+      <xsd:documentation>Pakkeinformasjon</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="PackingSequence" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Pakkesekvens</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="PackingNumber" type="String_3">
+              <xsd:annotation>
+                <xsd:documentation>Nummer på pakke i pakkehierarki</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Parents" type="String_3" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Nr. på foreldre i forpakningshierarki</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PackingInfo" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Pakningsinformasjon (om paller)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NumberOfPackages" type="xsd:integer">
+              <xsd:annotation>
+                <xsd:documentation>Antall kolli.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="MixedBench" type="xsd:string" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>BLANDINGSPALL, eller egen beskrivelse av forpakningen</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="PackingInformationCode" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Kodeinformasjon på pakke.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="PackingTypeCode" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Pakketype. Se kodeoversikt, kapittel 3.4</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Measurements" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Mål/vekt på forpakning</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="MeasurementDimension" type="String_3">
+              <xsd:annotation>
+                <xsd:documentation>Dimensjoner ihht. kodeliste</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="MeasurementType" type="String_3" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Måletype</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="MeasurementUnit" type="String_3">
+              <xsd:annotation>
+                <xsd:documentation>Måleenhet</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="MeasurementValue" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Måleverdi</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Handling" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Behandlingsinstruks</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="HandlingCode" type="String_3">
+              <xsd:annotation>
+                <xsd:documentation>Behandlingskode</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="HandlingInstruction" type="xsd:string" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Håndteringsinstruks</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="TemperatureRequirement" type="String_3" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Temperaturkrav</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="HazardousGoods" type="String_3" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>Kode for klassifisering</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ParcelLabel">
+        <xsd:annotation>
+          <xsd:documentation>Merkeinstruks</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="LabelInstruction" type="String_3">
+              <xsd:annotation>
+                <xsd:documentation>Merkeinstruks</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ParcelIdentification" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Pakningsidentifikasjon (SSCC)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="NumberTypeCode" type="String_3">
+              <xsd:annotation>
+                <xsd:documentation>Kode for nummertype</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="IdentFrom" type="String_35">
+              <xsd:annotation>
+                <xsd:documentation>Identifikasjon av enhet</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="DeliveryNoteType">
+    <xsd:sequence>
+      <xsd:element name="MessageNumber" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Unikt nr som identifiserer meldingen innenfor en utveksling</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MessageTimestamp" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>Meldingens dato (YYYY-MM-DDTHH:MM:SS) Sendetidspunkt</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeliveryNoteHeader" type="DeliveryNoteHeaderType">
+        <xsd:annotation>
+          <xsd:documentation>Pakkseddel hode</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeliveryNoteDetails" type="DeliveryNoteDetailsType" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Pakkseddel detaljer</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeliveryNoteSummary" type="EanSummaryType">
+        <xsd:annotation>
+          <xsd:documentation>Pakkseddel kontroll</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="MessageOwner" type="xsd:string" fixed="GS1NOR" use="required">
+      <xsd:annotation>
+        <xsd:documentation>= GS1NOR</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="MessageType" type="xsd:string" fixed="DELIVERYNOTE" use="required">
+      <xsd:annotation>
+        <xsd:documentation>= DELIVERYNOTE      (DESADV i EDIFACT)</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="MessageVersion" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="RefDesadvDetailsType">
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Koder i henhold til kodeliste.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Text" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+Antall F-pak i D-pak
+VQ = Kvantumsvare
+IT = Anbrekk
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RefDesadvHeaderType">
+    <xsd:sequence>
+      <xsd:element name="Code" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Kode ihht. kodeliste</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Text" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Pakkseddelnummer</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

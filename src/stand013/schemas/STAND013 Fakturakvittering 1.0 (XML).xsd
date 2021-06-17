@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--============================================================================-->
+<!--e2b Common Components-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--============================================================================-->
+<!--Version: 1.2.1-->
+<!--Last changed: 2007.05.02     Moved include of business specific schemas to e2b_Invoice-->
+<!--============================================================================-->
+<!--==============================================================================-->
+<!--e2b Application Response Interchange format-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--==============================================================================-->
+<!--Version:		1.0.1-->
+<!--Last changed: 2007.05.02      'Inserted include of new schema versions-->
+<!--==============================================================================-->
+<!--============================================================================-->
+<!--e2b Common Components in Interchange and Message Header-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--============================================================================-->
+<!--Version: 1.0-->
+<!--Last changed: 2007.05.02     'New Schema in e2b v3.3.1-->
+<!--============================================================================-->
+<xs:schema xmlns="http://www.e2b.no/XMLSchema"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.e2b.no/XMLSchema"
+    elementFormDefault="qualified">
+  <xs:element name="Interchange" type="InterchangeType">
+    <xs:annotation>
+      <xs:documentation>Main structure in Invoice Interchange. Envelope, InterchangeHeader and MessageHeader is optional.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AccountInformationType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Account-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AccountNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Bankkontonummer: Bedriftens kontonummer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IbanNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Ibannummer: For internasjonal betaling.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SwiftNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>SwiftIbannummer: For internasjonal betaling.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AddressType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Address-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Address1" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address2" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address3" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostalCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostalDistrict" type="xs:string" minOccurs="0"/>
+      <xs:element name="CountryCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="CountryName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ApplicationResponseType">
+    <xs:annotation>
+      <xs:documentation>Kvitteringsmelding</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MessageNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Meldingsnummer. Unikt nummer som identifiserer meldingen innenfor en utveksling.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MessageTimestamp" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Meldingsdato. Dato og klokkeslett når  meldingen er generert. Format: YYYY-MM-DDTHH:MM:SS</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NumberOfResponses" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Antall kvitteringer i meldingen.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocumentResponse" type="DocumentResponseType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Dokumentkvittering. Kvittering på mottatt dokument</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="MessageOwner" type="xs:string" fixed="e2b" use="required">
+      <xs:annotation>
+        <xs:documentation>Meldingseier. Fast verdi: "e2b"</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="MessageType" type="xs:string" fixed="ApplicationResponse" use="required">
+      <xs:annotation>
+        <xs:documentation>Meldingstype. Fast verdi: "ApplicationResponse"</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="MessageVersion" type="xs:decimal" use="required">
+      <xs:annotation>
+        <xs:documentation>Versjon. Fast verdi: "1.0"</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="language" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Språkkode</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ContactInformationType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Contact-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PhoneNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="FaxNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="EmailAddress" type="xs:string" minOccurs="0"/>
+      <xs:element name="WebAddress" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContactPersonType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Contact-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+      <xs:element name="LastName" type="xs:string" minOccurs="0"/>
+      <xs:element name="ContactInformation" type="ContactInformationType" minOccurs="0"/>
+      <xs:element name="Function" type="xs:string" minOccurs="0"/>
+      <xs:element name="Department" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentReferenceType">
+    <xs:annotation>
+      <xs:documentation>Information about a Document referred to in another Document</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ID" type="IdentifierType">
+        <xs:annotation>
+          <xs:documentation>The identifier for the Document being referred to</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocumentType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>New element in e2b. Not in UBL-message</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IssueDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date assigned by the sender of the referenced Document on which the referenced Document was issued</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentResponseType">
+    <xs:annotation>
+      <xs:documentation>information about responses to a document (at the application level)</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Response" type="ResponseType">
+        <xs:annotation>
+          <xs:documentation>The response to the document</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DocumentReference" type="DocumentReferenceType">
+        <xs:annotation>
+          <xs:documentation>associates the Line with a Document</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IssuerParty" type="PartyType">
+        <xs:annotation>
+          <xs:documentation>The party who issued a document</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RecipientParty" type="PartyType">
+        <xs:annotation>
+          <xs:documentation>The party to whom the document is intended</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EnvelopeType">
+    <xs:annotation>
+      <xs:documentation>Envelope. Contains information about sender and receiver.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="InterchangeId" type="xs:string"/>
+      <xs:element name="From" type="xs:string"/>
+      <xs:element name="To" type="xs:string"/>
+      <xs:element name="Date" type="xs:date"/>
+      <xs:element name="NumberOfMessages" type="xs:integer" minOccurs="0"/>
+      <xs:element name="TestIndicator" type="xs:integer" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IdentifierType">
+    <xs:annotation>
+      <xs:documentation>Lokasjonsnummer: F.eks. GLN lokasjonsnummer (Tidligere EAN lokasjonsnummer)</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="InterchangeType">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:element name="Envelope" type="EnvelopeType" minOccurs="0"/>
+      <xs:element name="ApplicationResponse" type="ApplicationResponseType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartyType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Party-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartyId" type="IdentifierType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Aktørnummer: Unik identifikator</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocationId" type="IdentifierType">
+        <xs:annotation>
+          <xs:documentation>Lokasjonsnummer: F.eks. GLN lokasjonsnummer (Tidligere EAN lokasjonsnummer).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Aktørnavn: navn på selskap.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ContactInformation" type="ContactInformationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Kontaktinformasjon: Kontaktinformasjon for bedriften.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StreetAddress" type="AddressType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Gateadresse: Null eller enn forekomst.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PostalAddress" type="AddressType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Postadresse: Null eller en forekomst</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ContactPerson" type="ContactPersonType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Kontaktperson: Null eller mange forekomster.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrgNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Organisasjonsnummer: Påkrevet for Leverandør (9 siffer). Anbefalt.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VatId" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>MVA-nummer: Påkrevet ved fakturering med MVA (14 karakterer). Anbefalt brukt.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Department" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Avdeling: Avdeling innen selskap.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AccountInformation" type="AccountInformationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Kontoinformasjon. Informasjon om konti for nasjonal og internasjonak betaling.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProjectRef" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Prosjektreferanse: Hos aktuelle aktører.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ref" type="RefWithCodeType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Referanse: Generelt referansefelt med kode. Null eller mange forekomster</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RefWithCodeType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Reference with code</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="xs:string"/>
+      <xs:element name="Text" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResponseCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="codetext" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ResponseType">
+    <xs:annotation>
+      <xs:documentation>Information about responses to a document (at the application level)</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ResponseCode" type="ResponseCodeType">
+        <xs:annotation>
+          <xs:documentation>A code for the description of the response to the transaction document.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

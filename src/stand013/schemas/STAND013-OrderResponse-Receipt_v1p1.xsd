@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--===========================================================-->
+<!--STAND013 OrderResponse_Receipt Message format-->
+<!--Copyright (c) GS1 Norway-->
+<!--===========================================================-->
+<!--Version:	 	1.1-->
+<!--Last changed:	 25.05.2020-->
+<!--OrderResponse_Receipt-->
+<!--===========================================================-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.ean-nor.no/schemas/eannor"
+    targetNamespace="http://www.ean-nor.no/schemas/eannor"
+    elementFormDefault="qualified">
+  <xsd:include schemaLocation="../Components/STAND013-Components_v1p1.xsd"/>
+  <xsd:element name="OrderResponse" type="OrderResponseType">
+    <xsd:annotation>
+      <xsd:documentation>Main</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="OrderResponseDetailsType"/>
+  <xsd:complexType name="OrderResponseHeaderType">
+    <xsd:sequence>
+      <xsd:element name="ConfirmationType" default="231">
+        <xsd:annotation>
+          <xsd:documentation>Dokumenttype</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="231">
+              <xsd:annotation>
+                <xsd:documentation>Ordrebekreftelse</xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="ConfirmationNumber" type="String_35">
+        <xsd:annotation>
+          <xsd:documentation>Ordrebekreftelse- / Ordrenummer tildelt av leverandør</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ConfirmationStatus" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>En av kodene må angis.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ConfirmationResponse" type="MessageResponseType">
+        <xsd:annotation>
+          <xsd:documentation>Det skal ikke sendes en ny ordre som «aksept» på eventuelle endringer sendt i ordrebekreftelse</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RequestedDeliveryDate" type="DateType">
+        <xsd:annotation>
+          <xsd:documentation>Ønsket leveringsdato/tid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DeliveryDate" type="DateType">
+        <xsd:annotation>
+          <xsd:documentation>Bekreftet leverings dato/-tid.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element ref="Supplier"/>
+      <xsd:element ref="Buyer"/>
+      <xsd:element ref="Invoicee" minOccurs="0"/>
+      <xsd:element ref="OrderedBy" minOccurs="0"/>
+      <xsd:element ref="DeliveryPart" minOccurs="0"/>
+      <xsd:element ref="UltimateCustomer" minOccurs="0"/>
+      <xsd:element ref="ShippedFrom" minOccurs="0"/>
+      <xsd:element ref="Carrier" minOccurs="0"/>
+      <xsd:element name="References" type="ReferencesType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="OrderResponseItemsType"/>
+  <xsd:complexType name="OrderResponseType">
+    <xsd:annotation>
+      <xsd:documentation>Ordrekvitteringsmelding</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MessageNumber" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Unikt nummer som identifiserer meldingen.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MessageTimestamp" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>The message creation date</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrderResponseHeader" type="OrderResponseHeaderType">
+        <xsd:annotation>
+          <xsd:documentation>Hodeinformasjon</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrderResponseSummary" type="EanSummaryType" minOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute name="MessageOwner" use="required">
+      <xsd:annotation>
+        <xsd:documentation>= GS1NOR</xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EANNOR"/>
+          <xsd:enumeration value="GS1NOR"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="MessageType" type="xsd:string" fixed="ORDERRESPONSE" use="required">
+      <xsd:annotation>
+        <xsd:documentation>= ORDREKVITTERING</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="MessageVersion" use="required">
+      <xsd:annotation>
+        <xsd:documentation>1.0</xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="1.11"/>
+          <xsd:enumeration value="1.2"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+</xsd:schema>

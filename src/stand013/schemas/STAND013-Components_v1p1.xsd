@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2020 rel. 2 (x64) (http://www.altova.com) by EdiSys Consulting AS (EdiSys Consulting AS) -->
+<!--=========================================================================-->
+<!--STAND013 Components format-->
+<!--Copyright (c) GS1 Norway-->
+<!--=========================================================================-->
+<!--Version: 1.1-->
+<!--Last changed: 25.05.2020-->
+<!--STAND013 Components-->
+<!--=========================================================================-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ean-nor.no/schemas/eannor" targetNamespace="http://www.ean-nor.no/schemas/eannor" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="Buyer" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av Kjøper (BY)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BuyersAgent" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av part som har tatt opp ordren (AB)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Carrier" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av Transportør (CA)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DeliveryPart" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av part som overtar varene (DP)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Invoicee" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av Fakturamottaker (IV)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LineItemNum" type="xsd:integer">
+		<xsd:annotation>
+			<xsd:documentation>Linjenummer. Løpenummer som starter med 1.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OrderedBy" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av Bestiller (OB)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ShippedFrom" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av Hentested (SF)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Supplier" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av Selger/Leverandør (SU)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="UltimateCustomer" type="PartyType">
+		<xsd:annotation>
+			<xsd:documentation>Identifikasjon av Sluttmottaker (UD)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="AccountInformationType">
+		<xsd:annotation>
+			<xsd:documentation>Kontoinformasjon</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="AccountNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IbanNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SwiftNumber" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AdditionalOrderLinesType">
+		<xsd:annotation>
+			<xsd:documentation>Sub-type: Order or Delivery-information</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="UnitOfMeasure" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+= Enhetsbetegnelser,
+LTR = liter, PCE = antall, KGM = kilogram, MTR= meter
+Skal være med ved kvantumsvariabel vare
+          </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UnitPrice" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Quantity" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Bestilt kvantum</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LineNum" type="xsd:string" fixed="9999" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Linjenummer har fast verdi 9999</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderNumber" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Kjøpers bestillingsnummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AdditionalProductIdType">
+		<xsd:annotation>
+			<xsd:documentation>Annen referanse</xsd:documentation>
+		</xsd:annotation>
+	</xsd:complexType>
+	<xsd:complexType name="AddressType">
+		<xsd:annotation>
+			<xsd:documentation>Addresseinformasjon</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Address1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="35"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PostalCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="9"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PostalDistrict" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CarrierDetailsType">
+		<xsd:sequence>
+			<xsd:element name="CarrierSpecification" type="CarrierSpecificationType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Spesifikasjon av lastbærere som inngår i palleutvekslingsordningen. Repeteres for hver palletype.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PalletPlaces" type="PalletPlacesType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Spesifikasjon av pallplasser som forsendelsen opptar på bil.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CarrierMeasurementType">
+		<xsd:sequence>
+			<xsd:element name="ValueType" type="String_3" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>CT=Counts</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Quantity" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Antall</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UnitOfMeasure" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Enhet=PCE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CarrierSpecificationType">
+		<xsd:sequence>
+			<xsd:element name="Identification" type="String_14" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>GTIN</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Measurement" type="CarrierMeasurementType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContactInformationType">
+		<xsd:annotation>
+			<xsd:documentation>Kontaktinformasjon</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PhoneNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FaxNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="EmailAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="WebAddress" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ContactPersonType">
+		<xsd:annotation>
+			<xsd:documentation>Informasjon om kontaktperson</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="String_35">
+				<xsd:annotation>
+					<xsd:documentation>Navn på kontaktperson</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Department" type="DepartmentType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Avdeling</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DateType">
+		<xsd:sequence>
+			<xsd:element name="DateCode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Kode for tidsangivelse</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Date" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>Dato (YYYY-MM-DD)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Time" type="xsd:time" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Klokkeslett (HH:MM:SS)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="Decimal_6">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="Decimal_8">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="8"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="DepartmentType">
+		<xsd:sequence>
+			<xsd:element name="Code" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Kode for Department/Avdeling</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DepartmentText" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DiscountChargesAndTaxType">
+		<xsd:annotation>
+			<xsd:documentation>Sub-type: Info. about Discount, Charges or Tax</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Code" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Percent" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="BaseAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Quantity" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="UnitOfMeasure" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RatePerUnit" type="xsd:decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EanSummaryType">
+		<xsd:sequence>
+			<xsd:element name="NumberOfLineItems" type="Decimal_6">
+				<xsd:annotation>
+					<xsd:documentation>Antall ordrelinjer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ExchangeInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Sub-type: Exchange-information</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Currency" type="xsd:string"/>
+			<xsd:element name="ForeignAmount" type="xsd:decimal"/>
+			<xsd:element name="ExchangeRate" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ExchangeDate" type="xsd:date" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FreeTextType">
+		<xsd:sequence>
+			<xsd:element name="Code">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Text" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="MessageResponseType">
+		<xsd:restriction base="String_3">
+			<xsd:enumeration value="AC"/>
+			<xsd:enumeration value="AE"/>
+			<xsd:enumeration value="NA"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="OrderAndDeliveryInfoType">
+		<xsd:sequence>
+			<xsd:element name="UnitOfMeasure" type="String_3" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Enhetskode</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UnitPrice" type="Decimal_8" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Enhetspris</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PriceType" type="String_10" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Pristype</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Quantity" type="Decimal_8" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Kvantum</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LineNum" type="String_6" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Linjenummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderNumber" type="String_17" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Ordrenummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PalletPlacesType">
+		<xsd:sequence>
+			<xsd:element name="Measurement" type="CarrierMeasurementType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PartyType">
+		<xsd:sequence>
+			<xsd:element name="LocationId" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>$IsValidEan(this, "13")</xsd:documentation>
+					<xsd:documentation>Number is not a valid GLN</xsd:documentation>
+					<xsd:documentation>GLN for aktør</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Navn på aktør</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ContactInformation" type="ContactInformationType" minOccurs="0"/>
+			<xsd:element name="PostalAddress" type="AddressType" minOccurs="0"/>
+			<xsd:element name="ContactPerson" type="ContactPersonType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="OrgNumber" type="String_9" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Organisasjonsnummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="VatId" type="String_14" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>MVA-nummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ref" type="RefWithCodeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PaymentDiscountType">
+		<xsd:annotation>
+			<xsd:documentation>Sub-type: PaymentDiscount-information</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DiscountPercent" type="xsd:decimal"/>
+			<xsd:element name="DiscountDays" type="xsd:decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PaymentType">
+		<xsd:annotation>
+			<xsd:documentation>Sub-type: Payment-information</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DueDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="Currency" type="xsd:string" default="NOK"/>
+			<xsd:element name="KidNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PaymentTerms" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PaymentDiscount" type="PaymentDiscountType" minOccurs="0"/>
+			<xsd:element name="OverDuePercent" type="xsd:decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductDescriptionType">
+		<xsd:annotation>
+			<xsd:documentation>Sub-type: Description with short and long text</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ShortText" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Veretekst kort</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LongText" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Veretekst lang</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReceiptText" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Bongtekst.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BrandName" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Merkevarenavn</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AdditionalDescriptions" type="RefWithCodeType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProductIdentificationType">
+		<xsd:annotation>
+			<xsd:documentation>Produktidentifikasjon</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SuppliersProductId" type="String_14" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Leverandørs produktnummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BuyersProductId" type="String_14" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Kjøpers produktnummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="GTIN" type="String_14" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>GTIN-8, GTIN-12, GTIN-13 eller GTIN-14</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AdditionalProductID" type="RefWithCodeType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="QuantityWithDateType">
+		<xsd:sequence>
+			<xsd:element name="QuantityType" type="String_3" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Kvantum type</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QuantityStatus" type="String_35" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Status</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Quantity" type="Decimal_8">
+				<xsd:annotation>
+					<xsd:documentation>Kvantum</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QuantityUnit" type="String_3" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Enhet</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QuantityDate" type="DateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Dato for kvantum</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ReferencesType">
+		<xsd:annotation>
+			<xsd:documentation>Referanser</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="BuyersOrderNumber" type="String_17" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Kjøpers ordrenummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SuppliersOrderNumber" type="String_17" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Leverandørs ordrenummer</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ConsignmentNumber" type="String_17" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Consignment number</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RefWithCodeType" id="Sequence">
+		<xsd:annotation>
+			<xsd:documentation>Annen referanse</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Code" type="String_35" id="Code">
+				<xsd:annotation>
+					<xsd:documentation>Kodeverdi</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Text" type="xsd:string" id="Text" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RefWithDateType">
+		<xsd:annotation>
+			<xsd:documentation>Sub-type: Reference with Date</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Reference">
+				<xsd:annotation>
+					<xsd:documentation>Referansetekst</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ReferenceDate" type="DateType">
+				<xsd:annotation>
+					<xsd:documentation>Dato/tid for referansen</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ReplacementProductType">
+		<xsd:annotation>
+			<xsd:documentation>Erstatningsvare</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ReplacementType" type="String_3">
+				<xsd:annotation>
+					<xsd:documentation>Erstatningstype</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProductIdentification" type="ProductIdentificationType">
+				<xsd:annotation>
+					<xsd:documentation>Produktidentifikasjon</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="String_10">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String_13">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="13"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String_14">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="14"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String_15">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String_17">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="17"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String_3">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String_35">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="35"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String_6">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="String_9">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="9"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TermsOfDeliveryType">
+		<xsd:annotation>
+			<xsd:documentation>Leveringsbetingelser.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:complexType>
+	<xsd:simpleType name="TextQualifierType">
+		<xsd:annotation>
+			<xsd:documentation>BaseType : Tekstkvalifikator.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="String_3">
+			<xsd:enumeration value="PAC"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="TextType">
+		<xsd:sequence>
+			<xsd:element name="FreeText1" type="String_10"/>
+			<xsd:element name="FreeText2" type="String_15"/>
+			<xsd:element name="FreeText3" type="String_15"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TransportInstructionType">
+		<xsd:annotation>
+			<xsd:documentation>Sub-type: Transport/håndteringsinfo</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="TextQualifier" type="TextQualifierType"/>
+			<xsd:element name="Text" type="TextType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

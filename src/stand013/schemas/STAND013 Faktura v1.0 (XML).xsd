@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--==============================================================================-->
+<!--e2b Extension for Telecom-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--==============================================================================-->
+<!--Version: 1.02-->
+<!--Last changed:	2007.05.02      'Inserted include of e2b_Common-->
+<!--==============================================================================-->
+<!--==============================================================================-->
+<!--e2b Extension for Energy Information-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--==============================================================================-->
+<!--Version:		1.0.1-->
+<!--Last changed:	2007.05.01   'Inserted include of new version of e2b_Common-->
+<!--==============================================================================-->
+<!--edited with XML Spy v4.3 U (http://www.xmlspy.com)-->
+<!--==============================================================================-->
+<!--e2b Extension for Insurance Information-->
+<!--Copyright (c) e2b Forum (2006)-->
+<!--==============================================================================-->
+<!--Version:		1.02-->
+<!--Last changed:	2006.06.23   'Changed ClaimNumber to minOccurs=0-->
+<!--==============================================================================-->
+<!--=============================================================================-->
+<!--e2b Extension for Transport-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--=============================================================================-->
+<!--Version      : 1.0.1-->
+<!--Last changed:	2007.05.02       'Inserted include of Common Schemas-->
+<!--'Changed names on complexTypes-->
+<!--=============================================================================-->
+<!--Transport profile for e2b invoice-->
+<!--edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Geir Bonde (geir.bonde@edisys.no) (EdiSys AS)-->
+<!--==============================================================================-->
+<!--e2b Extension for Building-->
+<!--Copyright (c) e2b Forum (2006)-->
+<!--==============================================================================-->
+<!--Version: 1.0-->
+<!--Last changed:	2006.04.28    Approved in e2b 3.3-->
+<!--==============================================================================-->
+<!--============================================================================-->
+<!--e2b Common Components-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--============================================================================-->
+<!--Version: 1.2.1-->
+<!--Last changed: 2007.05.02     Moved include of business specific schemas to e2b_Invoice-->
+<!--============================================================================-->
+<!--=========================================================================-->
+<!--e2b Extension for Travel-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--=========================================================================-->
+<!--Version      : 1.0.1-->
+<!--Last changed : 2007.05.02       'Changed names on Transport types-->
+<!--==========================================================================-->
+<!--XML components for Travel-->
+<!--
+=========================================================================  
+				e2b Extension for Seafreight                         
+				Copyright (c) e2b Forum (2007)                     
+	=========================================================================  
+				Version:       1.0.1                                                         
+				Last changed : 2007.05.02  'Inserted include of common schemas                                   
+	=========================================================================
+-->
+<!--edited with XML Spy v4.3 U (http://www.xmlspy.com)-->
+<!--==============================================================================-->
+<!--e2b Extension for Card Information-->
+<!--Copyright (c) e2b Forum (2006)-->
+<!--==============================================================================-->
+<!--Version:		1.02-->
+<!--Last changed:	2006.04.28   'Inserted Attribute MessageVersion in CardHeaderInfoType-->
+<!--==============================================================================-->
+<!--==============================================================================-->
+<!--e2b Interchange format-->
+<!--Copyright (c) e2b Forum (2006)-->
+<!--==============================================================================-->
+<!--Version:  3.3.1-->
+<!--Last changed:	2007.27.04-->
+<!--==============================================================================-->
+<!--=============================================================================-->
+<!--e2b Extension for Travel-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--=============================================================================-->
+<!--Version      : 1.0.2-->
+<!--Last changed:	2007.05.02   'Inserted include of Common schemas-->
+<!--=============================================================================-->
+<!--XML components for Travel-->
+<!--============================================================================-->
+<!--e2b Common Components in Interchange and Message Header-->
+<!--Copyright (c) e2b Forum (2007)-->
+<!--============================================================================-->
+<!--Version: 1.0-->
+<!--Last changed: 2007.05.02     'New Schema in e2b v3.3.1-->
+<!--============================================================================-->
+<xs:schema xmlns="http://www.e2b.no/XMLSchema"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.e2b.no/XMLSchema"
+    elementFormDefault="qualified">
+  <xs:element name="Interchange" type="InterchangeType">
+    <xs:annotation>
+      <xs:documentation>1</xs:documentation>
+      <xs:documentation>Main structure in Invoice Interchange. Envelope, InterchangeHeader and MessageHeader is optional.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="AccountInformationType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Account-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AccountNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Bankkontonummer: Bedriftens kontonummer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IbanNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Ibannummer: For internasjonal betaling.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SwiftNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>SwiftIbannummer: For internasjonal betaling.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActualPaymentType">
+    <xs:annotation>
+      <xs:documentation>Split for mapping to giroformat</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="Currency" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AddressType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Address-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Address1" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address2" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address3" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostalCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostalDistrict" type="xs:string" minOccurs="0"/>
+      <xs:element name="CountryCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="CountryName" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BaseItemDetailsType">
+    <xs:annotation>
+      <xs:documentation>Main type - Basic details information in</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element name="SubInvoice" type="SubInvoiceType"/>
+      </xs:choice>
+      <xs:group ref="BaseItemDetailsGroup"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="BusinessCodeType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+      <xs:enumeration value="7"/>
+      <xs:enumeration value="8"/>
+      <xs:enumeration value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ContactInformationType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Contact-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PhoneNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="FaxNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="EmailAddress" type="xs:string" minOccurs="0"/>
+      <xs:element name="WebAddress" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContactPersonType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Contact-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+      <xs:element name="LastName" type="xs:string" minOccurs="0"/>
+      <xs:element name="ContactInformation" type="ContactInformationType" minOccurs="0"/>
+      <xs:element name="Function" type="xs:string" minOccurs="0"/>
+      <xs:element name="Department" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DetailsType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Basic Details-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="BaseItemDetailsGroup"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DiscountChargesAndTaxType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Info. about Discount or Charges</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="xs:string" minOccurs="0"/>
+      <xs:element name="Description" type="xs:string" minOccurs="0"/>
+      <xs:element name="Percent" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="BaseAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="Amount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="Quantity" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="UnitOfMeasure" type="xs:string" minOccurs="0"/>
+      <xs:element name="RatePerUnit" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="VatInfo" type="VatInfoType" minOccurs="0"/>
+      <xs:element name="CalculationSequence" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="DiscountTreatmentCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TG"/>
+      <xs:enumeration value="TN"/>
+      <xs:enumeration value="UG"/>
+      <xs:enumeration value="UN"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="DiscountTreatmentType">
+    <xs:simpleContent>
+      <xs:extension base="DiscountTreatmentCodeType"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="EnvelopeType">
+    <xs:annotation>
+      <xs:documentation>SubType - Envelope. Contains information about sender and receiver</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="InterchangeId" type="xs:string"/>
+      <xs:element name="From" type="xs:string"/>
+      <xs:element name="To" type="xs:string"/>
+      <xs:element name="Date" type="xs:date"/>
+      <xs:element name="Time" type="xs:time" minOccurs="0"/>
+      <xs:element name="NumberOfMessages" type="xs:integer" minOccurs="0"/>
+      <xs:element name="TestIndicator" type="xs:integer" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HeaderType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Basic Header-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="InvoiceHeaderGroup"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IdentifierType">
+    <xs:annotation>
+      <xs:documentation>Lokasjonsnummer: F.eks. GLN lokasjonsnummer (Tidligere EAN lokasjonsnummer)</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="InterchangeType">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="Envelope" type="EnvelopeType" minOccurs="0"/>
+      <xs:element name="Invoice" type="InvoiceType"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:simpleType name="InvoiceCodeType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="380"/>
+      <xs:enumeration value="381"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="InvoiceContentType">
+    <xs:annotation>
+      <xs:documentation>Lovlige verdier: K=Kostnadsfaktura V=Varefaktura T=Tjenestefaktura</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="K"/>
+      <xs:enumeration value="T"/>
+      <xs:enumeration value="V"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="InvoiceDetailsType">
+    <xs:annotation>
+      <xs:documentation>Main type - Details-information</xs:documentation>
+    </xs:annotation>
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="BaseItemDetails" type="BaseItemDetailsType"/>
+      <xs:element name="FreeText" type="xs:string"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="InvoiceDiscountChargesAndTaxType">
+    <xs:annotation>
+      <xs:documentation>Main type - Discount, Charges and Tax-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="InvoiceDiscount" type="DiscountChargesAndTaxType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="InvoiceCharges" type="DiscountChargesAndTaxType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="InvoiceTax" type="DiscountChargesAndTaxType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvoiceHeaderType">
+    <xs:annotation>
+      <xs:documentation>Main type - Header-information including Information related to Business sectors</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="InvoiceHeaderGroup"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvoiceReferencesType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Invoice references</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="BuyersOrderNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="BuyersOrderDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="BuyersProjectCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="InvoiceNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="SuppliersOrderNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="DeliveryTerms" type="xs:string" minOccurs="0"/>
+      <xs:element name="DeliveryTermsCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="DeliveryTermsPlace" type="xs:string" minOccurs="0"/>
+      <xs:element name="DeliveryNoteNum" type="xs:string" minOccurs="0"/>
+      <xs:element name="DeliveryDate" type="xs:date" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvoiceStatusType">
+    <xs:simpleContent>
+      <xs:extension base="StatusCodeType"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="InvoiceSummaryType">
+    <xs:annotation>
+      <xs:documentation>Main type - Summary-information</xs:documentation>
+    </xs:annotation>
+    <xs:group ref="InvoiceSummaryGroup"/>
+  </xs:complexType>
+  <xs:complexType name="InvoiceTotalsType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Invoice totals</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LineItemTotalsAmount" type="xs:decimal"/>
+      <xs:element name="DiscountTotalsAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="ChargesTotalsAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="TaxTotalsAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="PrePaidAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="GrossAmount" type="xs:decimal"/>
+      <xs:element name="VatTotalsAmount" type="xs:decimal"/>
+      <xs:element name="NetAmount" type="xs:decimal"/>
+      <xs:element name="RoundingAmount" type="xs:decimal" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvoiceType">
+    <xs:annotation>
+      <xs:documentation>Main Type - Invoice information. Main structure in Invoice. Contains Header, Details and Summary-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MessageNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="MessageTimestamp" type="xs:dateTime"/>
+      <xs:element name="NumberOfLines" type="xs:integer" minOccurs="0"/>
+      <xs:element name="InvoiceContent" type="InvoiceContentType" minOccurs="0"/>
+      <xs:element name="LineOfBusiness" type="LineOfBusinessType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="InvoiceHeader" type="InvoiceHeaderType"/>
+      <xs:element name="InvoiceDetails" type="InvoiceDetailsType" maxOccurs="unbounded"/>
+      <xs:element name="InvoiceDiscountChargesAndTax" type="InvoiceDiscountChargesAndTaxType" minOccurs="0"/>
+      <xs:element name="InvoiceSummary" type="InvoiceSummaryType"/>
+    </xs:sequence>
+    <xs:attribute name="MessageOwner" type="xs:string" fixed="e2b" use="required"/>
+    <xs:attribute name="MessageType" type="xs:string" fixed="Invoice" use="required"/>
+    <xs:attribute name="MessageVersion" type="MessageVersionType" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="InvoiceTypeType">
+    <xs:simpleContent>
+      <xs:extension base="InvoiceCodeType"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="LineOfBusinessType">
+    <xs:annotation>
+      <xs:documentation>Lovlige verdier: 1=Kort 2=Reise 3=Telecom 4=Transport 5=Frakt 6=Energi 9=Generelle varer</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="BusinessCodeType"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="MessageVersionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STAND013 v1.0"/>
+      <xs:minLength value="1"/>
+      <xs:maxLength value="35"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="OrderAndDeliveryInfoType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Order- or Delivery-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="UnitOfMeasure" type="xs:string" minOccurs="0"/>
+      <xs:element name="UnitPrice" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="PriceType" type="xs:string" minOccurs="0"/>
+      <xs:element name="Quantity" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="LineNum" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartyType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Party-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PartyId" type="IdentifierType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Aktørnummer: Unik identifikator</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocationId" type="IdentifierType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Lokasjonsnummer: F.eks. GLN lokasjonsnummer (Tidligere EAN lokasjonsnummer).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Aktørnavn: navn på selskap.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ContactInformation" type="ContactInformationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Kontaktinformasjon: Kontaktinformasjon for bedriften.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StreetAddress" type="AddressType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Gateadresse: Null eller enn forekomst.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PostalAddress" type="AddressType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Postadresse: Null eller en forekomst</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ContactPerson" type="ContactPersonType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Kontaktperson: Null eller mange forekomster.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrgNumber" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Organisasjonsnummer: Påkrevet for Leverandør (9 siffer). Anbefalt.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VatId" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>MVA-nummer: Påkrevet ved fakturering med MVA (14 karakterer). Anbefalt brukt.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Department" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Avdeling: Avdeling innen selskap.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AccountInformation" type="AccountInformationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Kontoinformasjon. Informasjon om konti for nasjonal og internasjonak betaling.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProjectRef" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Prosjektreferanse: Hos aktuelle aktører.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ref" type="RefWithCodeType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Referanse: Generelt referansefelt med kode. Null eller mange forekomster</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentDiscountType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - PaymentDiscount-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DiscountPercent" type="xs:decimal"/>
+      <xs:element name="DiscountDays" type="xs:decimal" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Payment-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DueDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="Currency" type="xs:string" default="NOK"/>
+      <xs:element name="KidNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="PaymentTerms" type="xs:string" minOccurs="0"/>
+      <xs:element name="PaymentDiscount" type="PaymentDiscountType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="OverDuePercent" type="xs:decimal" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PostingDetailsType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Posting details</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Dimension" type="xs:string"/>
+      <xs:element name="PostingCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PriceTypeCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AAA"/>
+      <xs:enumeration value="AAB"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PriceTypeType">
+    <xs:simpleContent>
+      <xs:extension base="PriceTypeCodeType">
+        <xs:attribute name="codetext" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="RefWithCodeType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Reference with code</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="xs:string"/>
+      <xs:element name="Text" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="StatusCodeType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="9"/>
+      <xs:enumeration value="10"/>
+      <xs:enumeration value="53"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SubInvoiceType">
+    <xs:sequence>
+      <xs:element name="Header" type="HeaderType"/>
+      <xs:element name="Details" type="DetailsType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxTotalsInfoType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Tax-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TaxCode" type="xs:string"/>
+      <xs:element name="TaxDescription" type="xs:string"/>
+      <xs:element name="TaxAmount" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="TaxTreatmentCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GIL"/>
+      <xs:enumeration value="GLL"/>
+      <xs:enumeration value="NIL"/>
+      <xs:enumeration value="NLL"/>
+      <xs:enumeration value="NON"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TaxTreatmentType">
+    <xs:simpleContent>
+      <xs:extension base="TaxTreatmentCodeType"/>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="VatInfoType">
+    <xs:annotation>
+      <xs:documentation>Sub-type - Vat-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="VatPercent" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="VatBaseAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="VatAmount" type="xs:decimal" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:group name="BaseItemDetailsGroup">
+    <xs:annotation>
+      <xs:documentation>Group - Basic Details-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LineItemNum" type="xs:string" minOccurs="0"/>
+      <xs:element name="SuppliersProductId" type="xs:string" minOccurs="0"/>
+      <xs:element name="Description" type="xs:string"/>
+      <xs:element name="BuyersProductId" type="xs:string" minOccurs="0"/>
+      <xs:element name="AdditionalProductId" type="RefWithCodeType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="UnitPrice" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="PriceType" type="PriceTypeType" minOccurs="0"/>
+      <xs:element name="PerQuantity" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="LineItemPreDiscountAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="PrePaidAmount" type="xs:decimal" minOccurs="0"/>
+      <xs:choice maxOccurs="2">
+        <xs:element name="LineItemAmount" type="xs:decimal"/>
+        <xs:element name="LineItemGrossAmount" type="xs:decimal"/>
+      </xs:choice>
+      <xs:element name="QuantityInvoiced" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="UnitOfMeasure" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrderInformation" type="OrderAndDeliveryInfoType" minOccurs="0"/>
+      <xs:element name="DeliveryInformation" type="OrderAndDeliveryInfoType" minOccurs="0"/>
+      <xs:element name="SuppliersOrderInformation" type="OrderAndDeliveryInfoType" minOccurs="0"/>
+      <xs:element name="VatInfo" type="VatInfoType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="TaxInfo" type="DiscountChargesAndTaxType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Discount" type="DiscountChargesAndTaxType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Charges" type="DiscountChargesAndTaxType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Licencee" type="PartyType" minOccurs="0"/>
+      <xs:element name="StartDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="EndDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="PostingInformation" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostingDetails" type="PostingDetailsType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Ref" type="RefWithCodeType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="InvoiceHeaderGroup">
+    <xs:annotation>
+      <xs:documentation>Group - Basic Header-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="InvoiceType" type="InvoiceTypeType" default="380" minOccurs="0"/>
+      <xs:element name="InvoiceStatus" type="InvoiceStatusType" default="9" minOccurs="0"/>
+      <xs:element name="InvoiceNumber" type="xs:string"/>
+      <xs:element name="InvoiceDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Format yyyy-mm-dd</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TaxTreatment" type="TaxTreatmentType" minOccurs="0"/>
+      <xs:element name="DiscountTreatment" type="DiscountTreatmentType" minOccurs="0"/>
+      <xs:element name="Supplier" type="PartyType"/>
+      <xs:element name="InvoiceIssuer" type="PartyType" minOccurs="0"/>
+      <xs:element name="Buyer" type="PartyType"/>
+      <xs:element name="Invoicee" type="PartyType" minOccurs="0"/>
+      <xs:element name="OrderedBy" type="PartyType" minOccurs="0"/>
+      <xs:element name="DeliveryPart" type="PartyType" minOccurs="0"/>
+      <xs:element name="UltimateCustomer" type="PartyType" minOccurs="0"/>
+      <xs:element name="ShippedFrom" type="PartyType" minOccurs="0"/>
+      <xs:element name="Factoring" type="PartyType" minOccurs="0"/>
+      <xs:element name="InvoiceReferences" type="InvoiceReferencesType" minOccurs="0"/>
+      <xs:element name="Payment" type="PaymentType"/>
+      <xs:element name="Attachments" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Ref. to attachments to the Invoice i.e. images</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ref" type="RefWithCodeType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="FreeText" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="InvoiceSummaryGroup">
+    <xs:annotation>
+      <xs:documentation>Group - Summary-information</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="InvoiceTotals" type="InvoiceTotalsType"/>
+      <xs:element name="VatTotalsInfo" type="VatInfoType" maxOccurs="unbounded"/>
+      <xs:element name="TaxTotalsInfo" type="TaxTotalsInfoType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="ActualPayment" type="ActualPaymentType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:group>
+</xs:schema>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--=======================================================================-->
+<!--STAND013 Order Message format-->
+<!--Copyright (c) GS1 Norway-->
+<!--=======================================================================-->
+<!--Version:	 	1.1-->
+<!--Last changed:	25.05.2020-->
+<!--STAND013 ORDER-->
+<!--=======================================================================-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.ean-nor.no/schemas/eannor"
+    targetNamespace="http://www.ean-nor.no/schemas/eannor"
+    elementFormDefault="qualified">
+  <xsd:include schemaLocation="../Components/STAND013-Components_v1p1.xsd"/>
+  <xsd:element name="Order" type="OrderType"/>
+  <xsd:complexType name="OrderDetailsType">
+    <xsd:annotation>
+      <xsd:documentation>Ordrelinjer</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="BaseItemDetails" type="OrderItemsType" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Ordrelinjedetaljer</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="OrderHeaderType">
+    <xsd:sequence>
+      <xsd:element name="OrderType" default="220">
+        <xsd:annotation>
+          <xsd:documentation>Hvilke ordretyper som skal benyttes må avtales bilateralt</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="220">
+              <xsd:annotation>
+                <xsd:documentation>Normalordre</xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="22E">
+              <xsd:annotation>
+                <xsd:documentation>Industriordre/Representantordre</xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="26E">
+              <xsd:annotation>
+                <xsd:documentation>Crossdockordre</xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="ZZ3">
+              <xsd:annotation>
+                <xsd:documentation>Prognose for planlegging. Endelig ordre vil følge.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:enumeration>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="OrderNumber" type="String_35">
+        <xsd:annotation>
+          <xsd:documentation>Bestillingsnummer tildelt av avsender</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrderResponse" type="MessageResponseType">
+        <xsd:annotation>
+          <xsd:documentation>En av kodene skal benyttes.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="RequestedDeliveryDate" type="DateType">
+        <xsd:annotation>
+          <xsd:documentation>Ønsket leverings dato/ tid. Leverings-/hentedato</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TransportInstruction" type="TransportInstructionType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Transport/håndteringsinfo. Benyttes ved kundepakkede leveranser.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element ref="Supplier"/>
+      <xsd:element ref="Buyer"/>
+      <xsd:element ref="Invoicee" minOccurs="0"/>
+      <xsd:element ref="OrderedBy" minOccurs="0"/>
+      <xsd:element ref="DeliveryPart" minOccurs="0"/>
+      <xsd:element ref="UltimateCustomer" minOccurs="0"/>
+      <xsd:element ref="ShippedFrom" minOccurs="0"/>
+      <xsd:element ref="Carrier" minOccurs="0"/>
+      <xsd:element ref="BuyersAgent" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Identifikasjon av part som har tatt opp ordren (AB) -(Kan brukes ved industriordre/representantordre)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Ref" type="RefWithCodeType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="OrderItemsType">
+    <xsd:sequence>
+      <xsd:element ref="LineItemNum"/>
+      <xsd:element name="ProductIdentification" type="ProductIdentificationType" minOccurs="0"/>
+      <xsd:element name="PackageUnitType" type="String_3">
+        <xsd:annotation>
+          <xsd:documentation>Skal benyttes når GTIN mangler</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Description" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Varebeskrivelse</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="QuantityOrdered" type="xsd:decimal">
+        <xsd:annotation>
+          <xsd:documentation>Mengde som bestilles</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UnitOfMeasure" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Målenhet for bestilt mengde  (PCE benyttes hvis mulig)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Ref" type="RefWithCodeType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="FreeText" type="FreeTextType" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>Fritekst</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="OrderType">
+    <xsd:annotation>
+      <xsd:documentation>Ordremelding</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="MessageNumber" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Unikt nummer som identifiserer meldingen.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="MessageTimestamp" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Meldingsdato</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OrderHeader" type="OrderHeaderType"/>
+      <xsd:element name="OrderDetails" type="OrderDetailsType"/>
+      <xsd:element name="OrderSummary" type="EanSummaryType"/>
+    </xsd:sequence>
+    <xsd:attribute name="MessageOwner" type="xsd:string" fixed="GS1NOR" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Meldingseier = GS1NOR</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="MessageType" type="xsd:string" fixed="ORDERS" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Meldingstype = ORDERS</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="MessageVersion" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>1.0</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+</xsd:schema>

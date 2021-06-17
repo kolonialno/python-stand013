@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--=======================================================================-->
+<!--STAND013 Order Interchange format-->
+<!--Copyright (c) GS1 Norway-->
+<!--=======================================================================-->
+<!--Version:		1.1-->
+<!--Last changed: 	25.05.2020-->
+<!--=======================================================================-->
+<!--STAND013 ORDER Interchange-->
+<!--=======================================================================-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.ean-nor.no/schemas/eannor"
+    xmlns:ns1="http://www.ean-nor.no/schemas/eannor"
+    targetNamespace="http://www.ean-nor.no/schemas/eannor"
+    elementFormDefault="qualified">
+  <xsd:include schemaLocation="STAND013-Order_v1p1.xsd"/>
+  <xsd:element name="Interchange">
+    <xsd:annotation>
+      <xsd:documentation>Utveksling. Inneholder kovolutt og en eller flere ordremeldinger.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Envelope" type="Envelope" minOccurs="0"/>
+        <xsd:element name="Order" type="OrderType" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="Envelope">
+    <xsd:annotation>
+      <xsd:documentation>Konvolutt</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="InterchangeId" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>Unik identifisering av utvekslingen.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="From" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>GLN til avsender</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="To" type="xsd:string">
+        <xsd:annotation>
+          <xsd:documentation>GLN til mottaker</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Date" type="xsd:date">
+        <xsd:annotation>
+          <xsd:documentation>Dato utveksling ble generert</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NumberOfMessages" type="xsd:integer" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Antall meldinger i utvekslingen</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="TestIndicator" type="xsd:integer" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Skal angis med verdien 1 dersom sendingen er en test</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
