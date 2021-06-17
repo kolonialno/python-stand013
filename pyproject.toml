@@ -25,6 +25,9 @@ stand013 = "stand013.cli:app"
 [tool.black]
 target-version = ["py37"]
 
+[tool.isort]
+profile = "black"
+
 [tool.mypy]
 python_version = "3.7"
 warn_return_any = true
