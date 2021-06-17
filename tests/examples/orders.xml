@@ -1,0 +1,46 @@
+<?xml version="1.1" encoding="ISO-8859-1"?>
+<Interchange xmlns="http://www.ean-nor.no/schemas/eannor"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="GS1_Order_Interchange_v1p0.xsd">
+    <Envelope>
+        <InterchangeId>2013100001</InterchangeId>
+        <From>7080000043217</From>
+        <To>7080000083121</To>
+        <Date>2013-10-15</Date>
+        <NumberOfMessages>1</NumberOfMessages>
+    </Envelope>
+    <Order MessageOwner="GS1NOR" MessageType="ORDERS" MessageVersion="STAND013 v1.0">
+        <MessageNumber>1</MessageNumber>
+        <MessageTimestamp>2013-10-15T14:25:30</MessageTimestamp>
+        <OrderHeader>
+            <OrderType>220</OrderType>
+            <OrderNumber>2013100001</OrderNumber>
+            <OrderResponse>Z1</OrderResponse>
+            <RequestedDeliveryDate>
+                <DateCode>200</DateCode>
+                <Date>2013-10-20</Date>
+            </RequestedDeliveryDate>
+            <Supplier>
+                <LocationId>7080000083121</LocationId>
+            </Supplier>
+            <Buyer>
+                <LocationId>7080000043217</LocationId>
+                <OrgNumber>914576612</OrgNumber>
+            </Buyer>
+        </OrderHeader>
+        <OrderDetails>
+            <BaseItemDetails>
+                <LineItemNum>1</LineItemNum>
+                <ProductIdentification>
+                    <GTIN>7032520000010</GTIN>
+                </ProductIdentification>
+                <PackageUnitType>TU</PackageUnitType>
+                <Description>WHEAT FLOUR</Description>
+                <QuantityOrdered>24</QuantityOrdered>
+                <UnitOfMeasure>PCE</UnitOfMeasure>
+            </BaseItemDetails>
+        </OrderDetails>
+        <OrderSummary>
+            <NumberOfLineItems>1</NumberOfLineItems>
+        </OrderSummary>
+    </Order>
+</Interchange>
