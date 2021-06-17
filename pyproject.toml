@@ -22,12 +22,21 @@ isort = "^5.8.0"
 mypy = "^0.902"
 nox = "^2021.6.12"
 pytest = "^6.2.4"
+pytest-cov = "^2.12.1"
 
 [tool.poetry.scripts]
 stand013 = "stand013.cli:app"
 
 [tool.black]
 target-version = ["py37"]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
 
 [tool.isort]
 profile = "black"
