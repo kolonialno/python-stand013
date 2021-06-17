@@ -5,11 +5,11 @@ import typer
 
 from stand013.validation import DocumentType, XMLSchemaValidationError
 
-app = typer.Typer()
+app = typer.Typer(name="stand013")
 
 
 @app.command()
-def validate(path: Path) -> None:
+def validate(path: Path) -> None:  # pragma: no cover
     typer.secho(f"File: {path}")
 
     document_type = DocumentType.detect(path)
@@ -31,6 +31,6 @@ def validate(path: Path) -> None:
 
 
 @app.callback()
-def callback() -> None:
+def callback() -> None:  # pragma: no cover
     # XXX: Workaround to ensure the single command above is a sub-command.
     pass
