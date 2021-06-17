@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="ISO-8859-1"?>
+<Interchange xmlns="http://www.ean-nor.no/schemas/eannor"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EAN_OrderResponse_Interchange_v1p0.xsd">
+    <Envelope>
+        <InterchangeId>20130350</InterchangeId>
+        <From>7080000083121</From>
+        <To>7080000043217</To>
+        <Date>2013-10-15</Date>
+        <NumberOfMessages>1</NumberOfMessages>
+    </Envelope>
+    <OrderResponse MessageOwner="GS1NOR" MessageType="ORDREKVITTERING" MessageVersion="STAND013v1.0">
+        <MessageNumber>1</MessageNumber>
+        <MessageTimestamp>2013-10-15T15:20:00-05:00</MessageTimestamp>
+        <OrderResponseHeader>
+            <ConfirmationType>231</ConfirmationType>
+            <ConfirmationNumber>20130350</ConfirmationNumber>
+            <ConfirmationStatus>12</ConfirmationStatus>
+            <ConfirmationResponse>NA</ConfirmationResponse>
+            <RequestedDeliveryDate>
+                <DateCode>2</DateCode>
+                <Date>2013-10-20</Date>
+            </RequestedDeliveryDate>
+            <DeliveryDate>
+                <DateCode>69</DateCode>
+                <Date>2013-10-20</Date>
+            </DeliveryDate>
+            <Supplier>
+                <LocationId>7080000083121</LocationId>
+                <OrgNumber>987654321</OrgNumber>
+            </Supplier>
+            <Buyer>
+                <LocationId>7080000043217</LocationId>
+            </Buyer>
+            <References>
+                <BuyersOrderNumber>2013100001</BuyersOrderNumber>
+            </References>
+        </OrderResponseHeader>
+        <OrderResponseSummary>
+            <NumberOfLineItems>0</NumberOfLineItems>
+        </OrderResponseSummary>
+    </OrderResponse>
+</Interchange>
