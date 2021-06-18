@@ -120,7 +120,8 @@ We've done the following changes to the XML schemas to make them work for our us
 
 - Commit 7bdb761d378a4ec2922a1ea14048b614e4cd08e1: Fix references to the
   `STAND013-Components_v1p1.xsd` file. This file is in the same directory as the
-  other schemas, not in `../Components/`. This is true both for the Zip file at stand.no and in python-stand013.
+  other schemas, not in `../Components/`. This is true both for the Zip file at
+  stand.no and in python-stand013.
 
 - Commit bd9e138ac6275ccabe7ce0907157a3a83d0b5ea1: Renamed
   `STAND013 DeliveryNote_v1p1.xsd` to `STAND013-DeliveryNote_v1p1.xsd` so that
@@ -132,3 +133,8 @@ We've done the following changes to the XML schemas to make them work for our us
   enum with the values `AC`, `AE`, or `NE`) to a new `OrderResponseType` enum
   with `Z1` as the only possible value. This matches the format documentation,
   and is necessary to be able to validate any `ORDERS` using the XML schemas.
+
+- Commit d6f6995642f9c60fcf039828a888df16f230f86c: Change required content for
+  the `MessageVersion` element to be exactly `STAND013 v1.0` for `ORDERS`,
+  `ORDRSP`, and `DESADV`. This matches the requirement in the field listings in
+  the STAND013 documentation.
