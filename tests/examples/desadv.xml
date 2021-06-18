@@ -1,0 +1,116 @@
+<?xml version="1.1" encoding="ISO-8859-1"?>
+<Interchange xmlns="http://www.ean-nor.no/schemas/eannor"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="GS1_Order_Interchange_v1p0.xsd">
+    <Envelope>
+        <InterchangeId>201301</InterchangeId>
+        <From>7080000083121</From>
+        <To>7080000043217</To>
+        <Date>2013-12-15</Date>
+    </Envelope>
+    <DeliveryNote MessageOwner="GS1NOR" MessageType="DELIVERYNOTE" MessageVersion="STAND013 v1.0">
+        <MessageTimestamp>2013-12-15T08:00:00</MessageTimestamp>
+        <DeliveryNoteHeader>
+            <DeliveryNoteType>351</DeliveryNoteType>
+            <DeliveryNoteNumber>1</DeliveryNoteNumber>
+            <DeliveryDate>
+                <Date>2013-12-15</Date>
+            </DeliveryDate>
+            <Supplier>
+                <LocationId>7080000083121</LocationId>
+                <OrgNumber>987654321</OrgNumber>
+            </Supplier>
+            <Buyer>
+                <LocationId>7080000043217</LocationId>
+            </Buyer>
+        </DeliveryNoteHeader>
+        <!-- XXX: A DeliveryNoteDetails without ParcelLabel,
+        ParcelIdentification, and BaseItemDetails is part of the examples, but
+        not allowed according to the XML schema. -->
+        <!-- <DeliveryNoteDetails>
+            <DeliveryNotePackages>
+                <PackingSequence>
+                    <PackingNumber>1</PackingNumber>
+                </PackingSequence>
+            </DeliveryNotePackages>
+        </DeliveryNoteDetails> -->
+        <DeliveryNoteDetails>
+            <DeliveryNotePackages>
+                <PackingSequence>
+                    <PackingNumber>2</PackingNumber>
+                    <Parents>1</Parents>
+                    <!-- XXX: PackingLevel is part of the examples in the
+                    documentation, but not the listings or the XML Schema. -->
+                    <!-- <PackingLevel>2</PackingLevel> -->
+                </PackingSequence>
+                <PackingInfo>
+                    <NumberOfPackages>1</NumberOfPackages>
+                    <PackingInformationCode>52</PackingInformationCode>
+                    <PackingTypeCode>201</PackingTypeCode>
+                </PackingInfo>
+                <ParcelLabel>
+                    <LabelInstruction>33E</LabelInstruction>
+                </ParcelLabel>
+                <ParcelIdentification>
+                    <NumberTypeCode>BJ</NumberTypeCode>
+                    <IdentFrom>370325200000000189</IdentFrom>
+                </ParcelIdentification>
+            </DeliveryNotePackages>
+            <BaseItemDetails>
+                <LineItemNum>1</LineItemNum>
+                <ProductIdentification>
+                    <GTIN>1435467891123</GTIN>
+                </ProductIdentification>
+                <Quantities>
+                    <DeliveredQuantity>
+                        <Quantity>14</Quantity>
+                    </DeliveredQuantity>
+                </Quantities>
+            </BaseItemDetails>
+        </DeliveryNoteDetails>
+        <DeliveryNoteDetails>
+            <DeliveryNotePackages>
+                <PackingSequence>
+                    <PackingNumber>3</PackingNumber>
+                    <Parents>1</Parents>
+                </PackingSequence>
+                <PackingInfo>
+                    <NumberOfPackages>1</NumberOfPackages>
+                    <PackingInformationCode>52</PackingInformationCode>
+                    <PackingTypeCode>201</PackingTypeCode>
+                </PackingInfo>
+                <ParcelLabel>
+                    <LabelInstruction>33E</LabelInstruction>
+                </ParcelLabel>
+                <ParcelIdentification>
+                    <NumberTypeCode>BJ</NumberTypeCode>
+                    <IdentFrom>370325200000000196</IdentFrom>
+                </ParcelIdentification>
+            </DeliveryNotePackages>
+            <BaseItemDetails>
+                <LineItemNum>2</LineItemNum>
+                <ProductIdentification>
+                    <GTIN>1234567891123</GTIN>
+                </ProductIdentification>
+                <Quantities>
+                    <DeliveredQuantity>
+                        <Quantity>4</Quantity>
+                    </DeliveredQuantity>
+                </Quantities>
+            </BaseItemDetails>
+            <BaseItemDetails>
+                <LineItemNum>3</LineItemNum>
+                <ProductIdentification>
+                    <GTIN>1234567891123</GTIN>
+                </ProductIdentification>
+                <Quantities>
+                    <DeliveredQuantity>
+                        <Quantity>10</Quantity>
+                    </DeliveredQuantity>
+                </Quantities>
+            </BaseItemDetails>
+        </DeliveryNoteDetails>
+        <DeliveryNoteSummary>
+            <NumberOfLineItems>3</NumberOfLineItems>
+        </DeliveryNoteSummary>
+    </DeliveryNote>
+</Interchange>

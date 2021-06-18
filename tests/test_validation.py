@@ -12,6 +12,7 @@ EXAMPLES_DIR = Path(__file__).parent / "examples"
     [
         "orders.xml",
         "ordrsp.xml",
+        "desadv.xml",
     ],
 )
 def test_validate_document(doc: str) -> None:
