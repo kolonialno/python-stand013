@@ -1,0 +1,23 @@
+name: CI
+
+on: push
+
+jobs:
+  tests:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.7", "3.8", "3.9"]
+
+    name: Python ${{ matrix.python-version }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install poetry==1.1.6
+      - run: pip install nox==2021.6.12
+      - run: nox
