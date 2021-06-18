@@ -8,9 +8,7 @@
 <!--Order Response Message-->
 <!--===========================================================-->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns="http://www.ean-nor.no/schemas/eannor"
-    targetNamespace="http://www.ean-nor.no/schemas/eannor"
-    elementFormDefault="qualified">
+  xmlns="http://www.ean-nor.no/schemas/eannor" targetNamespace="http://www.ean-nor.no/schemas/eannor" elementFormDefault="qualified">
   <xsd:include schemaLocation="STAND013-Components_v1p1.xsd"/>
   <xsd:element name="OrderResponse" type="OrderResponseType">
     <xsd:annotation>
@@ -184,7 +182,7 @@
       </xsd:annotation>
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
-          <xsd:enumeration value="STAND013v1.0"/>
+          <xsd:enumeration value="STAND013 v1.0"/>
         </xsd:restriction>
       </xsd:simpleType>
     </xsd:attribute>

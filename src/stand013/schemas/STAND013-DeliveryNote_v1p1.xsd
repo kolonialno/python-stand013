@@ -8,9 +8,7 @@
 <!--STAND013 Delivery Note-->
 <!--=========================================================================-->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns="http://www.ean-nor.no/schemas/eannor"
-    targetNamespace="http://www.ean-nor.no/schemas/eannor"
-    elementFormDefault="qualified">
+  xmlns="http://www.ean-nor.no/schemas/eannor" targetNamespace="http://www.ean-nor.no/schemas/eannor" elementFormDefault="qualified">
   <xsd:include schemaLocation="STAND013-Components_v1p1.xsd"/>
   <xsd:element name="DeliveryNote" type="DeliveryNoteType"/>
   <xsd:complexType name="DeliveryNoteDetailsType">
@@ -353,7 +351,16 @@ Hierarkisk struktur med Pakker og tilhørende Linjer
         <xsd:documentation>= DELIVERYNOTE      (DESADV i EDIFACT)</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
-    <xsd:attribute name="MessageVersion" type="xsd:string" use="required"/>
+    <xsd:attribute name="MessageVersion" use="required">
+      <xsd:annotation>
+        <xsd:documentation>1.0</xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="STAND013 v1.0"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
   </xsd:complexType>
   <xsd:complexType name="RefDesadvDetailsType">
     <xsd:sequence>
