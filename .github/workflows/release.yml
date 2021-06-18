@@ -1,0 +1,20 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - run: pip install poetry==1.1.6
+      - run: pip install nox==2021.6.12
+      - run: nox
+      - run: poetry build
+      - run: poetry publish --username=__token__ --password=${{ secrets.PYPI_TOKEN }}
