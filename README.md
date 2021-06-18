@@ -22,7 +22,11 @@ The following is a list of python-stand013's existing and planned features.
 
 ## Installation
 
-TODO: Depending on choice of Gemfury or PyPI as package registry.
+python-stand013 requires Python 3.7 or newer. It can be installed from PyPI using e.g. pip:
+
+```
+python3 -m pip install stand013
+```
 
 ## Usage as command line tool
 
