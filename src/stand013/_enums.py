@@ -3,7 +3,7 @@ from __future__ import annotations
 from enum import Enum
 from os import PathLike
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 from lxml import etree
 
@@ -16,9 +16,16 @@ class DocumentType(str, Enum):
     DESADV = "DESADV"
 
     @classmethod
-    def detect(cls, path: PathLike) -> Optional[DocumentType]:
+    def detect(cls, path: Union[PathLike, str]) -> Optional[DocumentType]:
         """Attempt to detect the document type of the given file."""
-        tree = etree.parse(str(Path(path)))
+
+        path = Path(path)
+
+        try:
+            tree = etree.parse(str(path))
+        except etree.XMLSyntaxError:
+            return None
+
         namespaces = {"s": "http://www.ean-nor.no/schemas/eannor"}
         if tree.xpath("/s:Interchange/s:Order", namespaces=namespaces):
             return cls.ORDERS
@@ -26,6 +33,7 @@ class DocumentType(str, Enum):
             return cls.ORDRSP
         if tree.xpath("/s:Interchange/s:DeliveryNote", namespaces=namespaces):
             return cls.DESADV
+
         return None
 
     @property
