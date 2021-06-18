@@ -8,7 +8,7 @@
         <Date>2013-10-15</Date>
         <NumberOfMessages>1</NumberOfMessages>
     </Envelope>
-    <OrderResponse MessageOwner="GS1NOR" MessageType="ORDREKVITTERING" MessageVersion="STAND013v1.0">
+    <OrderResponse MessageOwner="GS1NOR" MessageType="ORDREKVITTERING" MessageVersion="STAND013 v1.0">
         <MessageNumber>1</MessageNumber>
         <MessageTimestamp>2013-10-15T15:20:00-05:00</MessageTimestamp>
         <OrderResponseHeader>
