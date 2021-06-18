@@ -3,7 +3,7 @@ from pathlib import Path
 
 import typer
 
-from stand013.validation import DocumentType, XMLSchemaValidationError
+from stand013 import DocumentType, validation
 
 app = typer.Typer(name="stand013")
 
@@ -14,14 +14,14 @@ def validate(path: Path) -> None:  # pragma: no cover
 
     document_type = DocumentType.detect(path)
     if document_type is None:
-        typer.secho("Failed to detect document type", bold=True, fg="red")
+        typer.secho("Document type: Failed to detect", bold=True, fg="red")
         raise typer.Exit(code=1)
 
     typer.secho(f"Document type: {document_type}")
 
     try:
-        document_type.xml_schema.validate(str(path))
-    except XMLSchemaValidationError as exc:
+        validation.validate(document_type, path)
+    except validation.XMLSchemaValidationError as exc:
         typer.secho("XML Schema validation: failed", bold=True, fg="red")
         typer.echo("")
         typer.secho(textwrap.indent(str(exc), prefix="  "))

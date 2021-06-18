@@ -2,21 +2,20 @@ from pathlib import Path
 
 import pytest
 
-from stand013.validation import DocumentType
+from stand013 import DocumentType, validation
 
 EXAMPLES_DIR = Path(__file__).parent / "examples"
 
 
 @pytest.mark.parametrize(
-    "doc",
+    "document_type, example_file",
     [
-        "orders.xml",
-        "ordrsp.xml",
-        "desadv.xml",
+        (DocumentType.ORDERS, "orders.xml"),
+        (DocumentType.ORDRSP, "ordrsp.xml"),
+        (DocumentType.DESADV, "desadv.xml"),
     ],
 )
-def test_validate_document(doc: str) -> None:
-    path = EXAMPLES_DIR / doc
+def test_validate_document(document_type: DocumentType, example_file: str) -> None:
+    path = EXAMPLES_DIR / example_file
 
-    document_type = DocumentType.detect(path)
-    document_type.xml_schema.validate(str(path))
+    validation.validate(document_type, path)
