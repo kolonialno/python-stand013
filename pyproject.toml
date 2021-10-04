@@ -36,7 +36,7 @@ isort = "^5.8.0"
 mypy = "^0.930"
 nox = "^2021.6.12"
 pytest = "^6.2.4"
-pytest-cov = "^2.12.1"
+pytest-cov = "^3.0.0"
 
 [tool.poetry.scripts]
 stand013 = "stand013.cli:app"
